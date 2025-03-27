@@ -37,6 +37,7 @@
             RelativeMassOfEngineSystemTextBox = new TextBox();
             PayloadMassLabel = new Label();
             PayloadMassTextBox = new TextBox();
+            Calculate = new Button();
             SuspendLayout();
             // 
             // RelativePayloadMassTextBox
@@ -109,13 +110,24 @@
             PayloadMassTextBox.Name = "PayloadMassTextBox";
             PayloadMassTextBox.Size = new Size(100, 23);
             PayloadMassTextBox.TabIndex = 8;
-            PayloadMassTextBox.TextChanged += this.PayloadMassTextBox_TextChanged;
+            PayloadMassTextBox.TextChanged += PayloadMassTextBox_TextChanged;
+            // 
+            // Calculate
+            // 
+            Calculate.Location = new Point(375, 410);
+            Calculate.Name = "Calculate";
+            Calculate.Size = new Size(75, 23);
+            Calculate.TabIndex = 9;
+            Calculate.Text = "Расчет";
+            Calculate.UseVisualStyleBackColor = true;
+            Calculate.Click += Calculate_Click;
             // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(815, 467);
+            Controls.Add(Calculate);
             Controls.Add(PayloadMassTextBox);
             Controls.Add(PayloadMassLabel);
             Controls.Add(RelativeMassOfEngineSystemTextBox);
@@ -140,5 +152,6 @@
         private TextBox RelativeMassOfEngineSystemTextBox;
         private Label PayloadMassLabel;
         private TextBox PayloadMassTextBox;
+        private Button Calculate;
     }
 }

@@ -2,15 +2,18 @@ namespace DesignOfUAVWithAerodynamicConfigurationDuck
 {
     public partial class MainWindow : Form
     {
-        public double RelativePayloadMass { get; set; }
-        public double RelativeMassOfEquipment { get; set; }
-        public double RelativePayloadOfEngineSystem { get; set; }
-        public double PayloadMass { get; set; }
-        public double StartingWeight { get; set; }
-         
+        public float RelativePayloadMass { get; set; } // Относительная масса ПН
+        public float RelativeMassOfEquipment { get; set; } // Относительная масса аппаратуры
+        public float RelativePayloadOfEngineSystem { get; set; } // Относительная масса ДУ
+        public float PayloadMass { get; set; } // Масса ПН
+        public float StartingWeight { get; set; } // Стартовая масса БПЛА
+
+        DataProcessor dataProcessor;
+
         public MainWindow()
         {
             InitializeComponent();
+            dataProcessor = DataProcessor.GetCalculateObject();
         }
 
         private void RelativePayloadMassLabel_Click(object sender, EventArgs e)
@@ -25,28 +28,34 @@ namespace DesignOfUAVWithAerodynamicConfigurationDuck
         {
 
         }
-        private void PayloadMassLabel_Click(object sender, EventArgs e) 
+        private void PayloadMassLabel_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Convert.ToString(CalculateOfMass.CalculateOfStartingMass(PayloadMass, RelativePayloadMass)));
+
         }
         private void PayloadMassTextBox_TextChanged(object sender, EventArgs e)
         {
-            PayloadMass = Convert.ToDouble(PayloadMassTextBox.Text);
+            PayloadMass = ManipulationClass.ConvertTo(PayloadMassTextBox.Text);
         }
-        
+
         private void RelativePayloadMassTextBox_TextChanged(object sender, EventArgs e)
         {
-            RelativePayloadMass = Convert.ToDouble(RelativePayloadMassTextBox.Text);
+            RelativePayloadMass = ManipulationClass.ConvertTo(RelativePayloadMassTextBox.Text);
         }
 
         private void RelativeMassOfEquipmentTextBox_TextChanged(object sender, EventArgs e)
         {
-            RelativePayloadMass = Convert.ToDouble(RelativeMassOfEquipmentTextBox.Text);
+            RelativeMassOfEquipment = ManipulationClass.ConvertTo(RelativeMassOfEquipmentTextBox.Text);
         }
 
         private void RelativeMassOfEngineSystemTextBox_TextChanged(object sender, EventArgs e)
         {
-            RelativePayloadOfEngineSystem = Convert.ToDouble(RelativeMassOfEngineSystemTextBox.Text);
+            RelativePayloadOfEngineSystem = ManipulationClass.ConvertTo(RelativeMassOfEngineSystemTextBox.Text);
+        }
+
+        private void Calculate_Click(object sender, EventArgs e)
+        {
+            dataProcessor.CalculateOfStartingMass(PayloadMass, RelativePayloadMass);
+            MessageBox.Show(Convert.ToString(dataProcessor.StartingMass));
         }
     }
 }
